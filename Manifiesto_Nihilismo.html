@@ -1,0 +1,279 @@
+
+<style>
+body {
+  background: #0D0D0D !important;
+  color: #EAEAEA;
+}
+
+.card {
+  background: #1A1A1A !important;
+  border: 1px solid #2A2A2A !important;
+}
+
+.concept, .pillar, .dimension, .conclusion {
+  background: #141414 !important;
+}
+
+.header {
+  background: linear-gradient(135deg, #000000 0%, #1A1A1A 100%) !important;
+}
+
+.pillar.expanded {
+  background: #1F1F1F !important;
+}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: transparent; }
+  .container { font-family: var(--font-sans); max-width: 100%; padding: 0; }
+  
+  .header { background: linear-gradient(135deg, #2C2C2A 0%, #444441 100%); padding: 2.5rem 2rem; border-radius: var(--border-radius-lg); margin-bottom: 1.5rem; }
+  .header-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; flex-wrap: wrap; }
+  .header-badge { font-size: 11px; font-weight: 500; padding: 4px 12px; border-radius: var(--border-radius-md); background: rgba(255,255,255,0.15); color: #fff; letter-spacing: 0.5px; }
+  .header-title { font-size: 28px; font-weight: 500; color: #fff; line-height: 1.2; margin-bottom: 0.75rem; }
+  .header-subtitle { font-size: 15px; color: rgba(255,255,255,0.8); line-height: 1.6; max-width: 600px; }
+  
+  .card { background: var(--color-background-primary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.75rem; margin-bottom: 1.25rem; }
+  .card-header { margin-bottom: 1.25rem; }
+  .card-label { font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 0.5rem; }
+  .card-title { font-size: 18px; font-weight: 500; color: var(--color-text-primary); line-height: 1.3; }
+  .card-desc { font-size: 14px; color: var(--color-text-secondary); line-height: 1.7; margin-top: 0.5rem; }
+  
+  .diagnostic-content { font-size: 14px; color: var(--color-text-secondary); line-height: 1.8; margin-bottom: 1.25rem; }
+  .diagnostic-content strong { color: var(--color-text-primary); font-weight: 500; }
+  .concepts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+  .concept { background: var(--color-background-secondary); padding: 1rem 1.25rem; border-radius: var(--border-radius-md); border-left: 3px solid var(--color-border-secondary); }
+  .concept-term { font-size: 13px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .concept-def { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+  
+  .pillars { display: grid; gap: 12px; }
+  .pillar { background: var(--color-background-secondary); border: 0.5px solid var(--color-border-tertiary); border-radius: var(--border-radius-lg); padding: 1.25rem; cursor: pointer; transition: all 0.2s; }
+  .pillar:hover { border-color: var(--color-border-secondary); box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .pillar.expanded { background: var(--color-background-primary); border-color: #7F77DD; }
+  .pillar-header { display: flex; align-items: flex-start; gap: 12px; }
+  .pillar-number { flex-shrink: 0; width: 32px; height: 32px; border-radius: 50%; background: #EEEDFE; color: #534AB7; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; }
+  .pillar.expanded .pillar-number { background: #7F77DD; color: #fff; }
+  .pillar-info { flex: 1; }
+  .pillar-title { font-size: 15px; font-weight: 500; color: var(--color-text-primary); margin-bottom: 4px; }
+  .pillar-subtitle { font-size: 12px; color: var(--color-text-secondary); }
+  .pillar-content { font-size: 14px; color: var(--color-text-secondary); line-height: 1.7; margin-top: 1rem; padding-top: 1rem; border-top: 0.5px solid var(--color-border-tertiary); display: none; }
+  .pillar.expanded .pillar-content { display: block; }
+  .pillar-icon { color: var(--color-text-tertiary); font-size: 18px; }
+  .pillar.expanded .pillar-icon { transform: rotate(90deg); }
+  
+  .dimensions { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 1.25rem; }
+  .dimension { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1.5rem; }
+  .dimension-icon { font-size: 24px; margin-bottom: 0.75rem; }
+  .dimension-label { font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+  .dimension-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; }
+  .dim-material { border-left: 3px solid #EF9F27; }
+  .dim-material .dimension-label { color: #BA7517; }
+  .dim-spiritual { border-left: 3px solid #7F77DD; }
+  .dim-spiritual .dimension-label { color: #534AB7; }
+  .dim-community { border-left: 3px solid #378ADD; }
+  .dim-community .dimension-label { color: #185FA5; }
+  
+  .conclusion { background: var(--color-background-secondary); border-radius: var(--border-radius-lg); padding: 1.5rem; margin-top: 1.25rem; border-left: 3px solid #1D9E75; }
+  .conclusion-text { font-size: 14px; color: var(--color-text-secondary); line-height: 1.8; font-style: italic; }
+  
+  .footer { text-align: center; padding: 1.5rem 0; }
+  .footer-team { font-size: 12px; color: var(--color-text-secondary); margin-bottom: 4px; }
+  .footer-uni { font-size: 11px; color: var(--color-text-tertiary); }
+  
+  .instruction { background: #E6F1FB; border-left: 3px solid #378ADD; padding: 0.75rem 1rem; border-radius: var(--border-radius-md); margin-bottom: 1.25rem; }
+  .instruction-text { font-size: 12px; color: #0C447C; line-height: 1.5; }
+  
+  @media (max-width: 640px) {
+    .header { padding: 2rem 1.5rem; }
+    .header-title { font-size: 24px; }
+    .card { padding: 1.5rem; }
+    .dimensions { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="container">
+  <h2 class="sr-only" style="position:absolute;left:-9999px">Manifiesto Digital para el Desarrollo Humano — Análisis del Nihilismo en las Apuestas Deportivas</h2>
+
+  <div class="header">
+    <div class="header-meta">
+      <span class="header-badge">Filosofía del Desarrollo Humano</span>
+      <span class="header-badge">Abril 2026</span>
+    </div>
+   <h1 class="header-title">La Revolución del Encuentro</h1>
+<p class="header-subtitle">
+Contra la deshumanización del deporte: una crítica al nihilismo en las apuestas deportivas y una propuesta de reconstrucción desde el personalismo de Emmanuel Mounier
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-label">I. Diagnóstico del Nihilismo Actual</div>
+      <h3 class="card-title">Despersonalización en las apuestas deportivas</h3>
+      <p class="card-desc">Un análisis desde el personalismo de Emmanuel Mounier</p>
+    </div>
+    
+   <div class="diagnostic-content">
+  En el contexto del fútbol moderno y las apuestas deportivas, nos enfrentamos a una manifestación directa del <strong>nihilismo contemporáneo</strong>: la reducción del ser humano a cifras, probabilidades y utilidad económica. Lo que antes era experiencia, identidad y comunidad, hoy es cálculo, predicción y especulación.
+</div>
+
+<div class="diagnostic-content">
+  El jugador ha dejado de ser persona para convertirse en <strong>dato estadístico</strong>. El equipo ya no representa pertenencia, sino un activo sobre el cual se apuesta. El aficionado ha sido transformado en <strong>consumidor de riesgo</strong>, cuya relación con el deporte se mide en ganancias y pérdidas. 
+  <strong>El deporte ha dejado de ser una experiencia humana para convertirse en un sistema de explotación emocional disfrazado de entretenimiento.</strong>
+</div>
+
+    <div class="concepts">
+      <div class="concept">
+        <div class="concept-term">Alienación</div>
+        <div class="concept-def">Pérdida de la dignidad humana y vaciamiento del sentido personal</div>
+      </div>
+      <div class="concept">
+        <div class="concept-term">Mercantilización</div>
+        <div class="concept-def">Transformación de relaciones humanas en transacciones económicas</div>
+      </div>
+      <div class="concept">
+        <div class="concept-term">Despersonalización</div>
+        <div class="concept-def">Reducción del sujeto a objeto de cálculo estadístico</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-label">II. Propuesta de Solución</div>
+      <h3 class="card-title">Revolución del Encuentro: cinco pilares de acción</h3>
+      <p class="card-desc">Basada en el concepto de Engagement (compromiso) de Emmanuel Mounier</p>
+    </div>
+
+    <div class="instruction">
+      <p class="instruction-text">💡 Haz clic en cada pilar para explorar las acciones concretas propuestas</p>
+    </div>
+
+    <div class="pillars">
+      <div class="pillar" onclick="togglePillar(this)">
+        <div class="pillar-header">
+          <div class="pillar-number">1</div>
+          <div class="pillar-info">
+            <div class="pillar-title">Revalorizar al jugador como persona</div>
+            <div class="pillar-subtitle">Recuperar la dimensión humana del deportista</div>
+          </div>
+          <div class="pillar-icon">›</div>
+        </div>
+        <div class="pillar-content">
+          Eliminar el uso de estadísticas como eje central en la narrativa deportiva y sustituirlas por contenidos que destaquen la historia, el esfuerzo y la dimensión humana del jugador. Siguiendo el concepto de engagement de Mounier, se trata de reconocer al deportista como persona, no como instrumento de rentabilidad.
+        </div>
+      </div>
+
+      <div class="pillar" onclick="togglePillar(this)">
+        <div class="pillar-header">
+          <div class="pillar-number">2</div>
+          <div class="pillar-info">
+            <div class="pillar-title">Reconstruir al equipo como comunidad</div>
+            <div class="pillar-subtitle">Restaurar la identidad colectiva del club</div>
+          </div>
+          <div class="pillar-icon">›</div>
+        </div>
+        <div class="pillar-content">
+         Implementar programas reales de vinculación entre clubes y comunidades locales: acceso a eventos, actividades sociales y participación directa de los aficionados. Esto responde al llamado de Mounier a reconstruir la comunidad como espacio de encuentro auténtico, no como mercado.
+        </div>
+      </div>
+
+      <div class="pillar" onclick="togglePillar(this)">
+        <div class="pillar-header">
+          <div class="pillar-number">3</div>
+          <div class="pillar-info">
+            <div class="pillar-title">Reeducar al aficionado hacia la experiencia</div>
+            <div class="pillar-subtitle">Del consumidor de riesgo al miembro comunitario</div>
+          </div>
+          <div class="pillar-icon">›</div>
+        </div>
+        <div class="pillar-content">
+          Desarrollar campañas educativas que desincentiven el consumo de apuestas y promuevan una vivencia del deporte basada en la pasión, la convivencia y la identidad colectiva. El aficionado debe recuperar su papel como sujeto activo, no como consumidor pasivo de riesgo.
+        </div>
+      </div>
+
+      <div class="pillar" onclick="togglePillar(this)">
+        <div class="pillar-header">
+          <div class="pillar-number">4</div>
+          <div class="pillar-info">
+            <div class="pillar-title">Regular estructuralmente las apuestas</div>
+            <div class="pillar-subtitle">Marco normativo de protección social</div>
+          </div>
+          <div class="pillar-icon">›</div>
+        </div>
+        <div class="pillar-content">
+         Establecer regulaciones concretas: prohibición de publicidad de apuestas en transmisiones deportivas, restricción de patrocinios en equipos y control del acceso a plataformas de apuestas para menores. Esta acción representa un compromiso estructural con la dignidad humana.
+        </div>
+      </div>
+
+      <div class="pillar" onclick="togglePillar(this)">
+        <div class="pillar-header">
+          <div class="pillar-number">5</div>
+          <div class="pillar-info">
+            <div class="pillar-title">Compromiso ético institucional</div>
+            <div class="pillar-subtitle">Acción coordinada de los actores del deporte</div>
+          </div>
+          <div class="pillar-icon">›</div>
+        </div>
+        <div class="pillar-content">
+          Exigir a jugadores, clubes y medios un posicionamiento ético claro: rechazo a la promoción de apuestas y compromiso activo con la humanización del deporte. En términos de Mounier, esto implica un engagement real: actuar, no solo reconocer el problema.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">
+      <div class="card-label">III. Vínculo con el Desarrollo Humano</div>
+      <h3 class="card-title">Crecimiento integral de la persona según Mounier</h3>
+      <p class="card-desc">Articulación entre las dimensiones material, espiritual y comunitaria</p>
+    </div>
+
+  <p style="font-size: 14px; color: var(--color-text-secondary); line-height: 1.8; margin-bottom: 1.25rem;">
+  Desde la perspectiva de Emmanuel Mounier, el desarrollo humano implica un compromiso activo con la realidad, donde la persona crece en libertad, comunidad y sentido. Esta propuesta no solo busca corregir una práctica social, sino restaurar al individuo como sujeto consciente, capaz de actuar sobre su entorno y no ser reducido por él.
+</p>
+
+    <div class="dimensions">
+      <div class="dimension dim-material">
+        <div class="dimension-icon">💰</div>
+        <div class="dimension-label">Dimensión Material</div>
+        <div class="dimension-text">
+          La regulación de las apuestas deportivas tiene un impacto directo en la protección económica de poblaciones vulnerables. Reduce los daños asociados al consumo compulsivo y la ludopatía, fenómenos que afectan desproporcionadamente a sectores de menores recursos.
+        </div>
+      </div>
+
+      <div class="dimension dim-spiritual">
+        <div class="dimension-icon">✨</div>
+        <div class="dimension-label">Dimensión Espiritual</div>
+        <div class="dimension-text">
+          Recuperar el fútbol como experiencia compartida auténtica restaura el sentido de pertenencia, la celebración colectiva y los vínculos interpersonales reales. Se contrapone al vacío existencial del consumo individualizado y la transacción mercantil.
+        </div>
+      </div>
+
+      <div class="dimension dim-community">
+        <div class="dimension-icon">🤝</div>
+        <div class="dimension-label">Dimensión Comunitaria</div>
+        <div class="dimension-text">
+          Un deporte humanizado fortalece el tejido social, la identidad colectiva y la participación ciudadana activa. Representa la antítesis del individuo aislado y atomizado que Mounier identificaba como producto del nihilismo europeo moderno.
+        </div>
+      </div>
+    </div>
+
+    <div class="conclusion">
+     <p class="conclusion-text">
+  "Humanizar el deporte no es una opción estética, sino una necesidad ética: implica devolverle al ser humano su lugar como protagonista, rompiendo con la lógica que lo reduce a objeto de consumo, cálculo y ganancia."
+</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-team">Diego Aranda · Alex Sánchez · Pablo Navarro · Corina Rodríguez · Diego Tapia</div>
+    <div class="footer-uni">Universidad Intercontinental · Filosofía del Desarrollo Humano · 2026</div>
+  </div>
+</div>
+
+<script>
+function togglePillar(element) {
+  const wasExpanded = element.classList.contains('expanded');
+  document.querySelectorAll('.pillar').forEach(p => p.classList.remove('expanded'));
+  if (!wasExpanded) {
+    element.classList.add('expanded');
+  }
+}
+</script>
